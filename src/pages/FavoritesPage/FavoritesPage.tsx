@@ -1,5 +1,7 @@
-import { useFavorites } from "@/hooks/useFavorites";
-import { CharacterList } from "@/components/CharacterList";
+import { CharacterList } from "@/pages/components/CharacterList";
+import { setupFavoritesDeps } from "./setupFavoritesDeps";
+
+const {useFavorites} = setupFavoritesDeps();
 
 export function FavoritesPage() {
   const { list, isFavorite, toggleFavorite, clearFavorites } = useFavorites();
@@ -26,3 +28,4 @@ export function FavoritesPage() {
     </div>
   );
 }
+

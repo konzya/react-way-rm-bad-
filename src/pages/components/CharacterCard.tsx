@@ -1,7 +1,7 @@
 import type { Character } from "@/types/character";
-import { Card, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Card, CardTitle, CardContent } from "@/shared/ui/card";
+import { Button } from "@/shared/ui/button";
+import { cn } from "@/shared/lib/utils";
 import { Star } from "lucide-react";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const CharacterCard = ({
-  character,
+  character, // вот тут поидее плохо что на объект завязано, лучше бы по одному пропсы прокидывать
   favorite,
   onToggleFavorite,
 }: Props) => {
