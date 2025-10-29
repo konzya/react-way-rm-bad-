@@ -1,16 +1,66 @@
-# Rick & Morty
+# Flutter <-> React Bridge API (JSON-RPC)
+## Version: 1.0.0
 
-Приложение состоит из двух страниц:
-- Страницы персонажей из Рик и Морти.
-- Страница с любимыми персонажами, куда попадают выбранные нажатием на звездочку.
+### /events/statusChanged
 
-Твоя задача провести анализ и понять, что здесь не так и провести рефакторинг по всем фронтам: структура папок, взаимодействие модулей, плохой код и т.д
+#### GET
+##### Summary:
 
-Можешь сделать рефакторинг в коде, либо просто выписать это по списку, но с подробном описанием того, что не так и главное напиши свой ответ на "Почему это плохо".
-Это позволит мне лучше всё проанализировать.
+Событие от хоста: status_changed
 
-Можешь для этого использовать доску https://excalidraw.com/.
+##### Responses
 
-Не трать на это задание много времени: 2-3 часа будет достаточно.
+| Code | Description |
+| ---- | ----------- |
+| 200 | Данные события |
 
-Позже будем разбирать версии, написанные мной. (да, их будет несколько :) )
+### /user/getUser
+
+#### POST
+##### Summary:
+
+Метод JSON-RPC: user_getUser
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Результат (result) вызова |
+| 400 | Ошибка валидации |
+| 404 | Не найдено |
+
+### Models
+
+
+#### ValidationError
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| field | string |  | No |
+| message | string |  | No |
+
+#### NotFoundError
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| resourceId | string |  | No |
+
+#### StatusEvent
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| newStatus | string |  | No |
+
+#### UserRequestParams
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| userId | string |  | No |
+
+#### UserResponse
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| id | string |  | No |
+| name | string |  | No |
+| email | string |  | No |
