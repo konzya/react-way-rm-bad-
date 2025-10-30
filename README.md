@@ -23,7 +23,9 @@ headingLevel: 2
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-<h1 id="flutter-react-bridge-api-json-rpc--default">Default</h1>
+<h1 id="flutter-react-bridge-api-json-rpc--events">Events</h1>
+
+Канал событий от хоста
 
 ## onStatusChanged
 
@@ -52,6 +54,10 @@ headingLevel: 2
 <aside class="success">
 This operation does not require authentication
 </aside>
+
+<h1 id="flutter-react-bridge-api-json-rpc--user">User</h1>
+
+Канал для работы с пользователем
 
 ## user_getUser
 
