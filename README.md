@@ -1,14 +1,6 @@
 ---
 title: Flutter <-> React Bridge API (JSON-RPC) v1.0.0
-language_tabs:
-  - shell: Shell
-  - http: HTTP
-  - javascript: JavaScript
-  - ruby: Ruby
-  - python: Python
-  - php: PHP
-  - java: Java
-  - go: Go
+language_tabs: []
 toc_footers: []
 includes: []
 search: true
@@ -21,19 +13,19 @@ headingLevel: 2
 
 <h1 id="flutter-react-bridge-api-json-rpc-">Flutter <-> React Bridge API (JSON-RPC) v1.0.0</h1>
 
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+> Scroll down for example requests and responses.
 
 <h1 id="flutter-react-bridge-api-json-rpc--events">Events</h1>
 
 Канал событий от хоста
 
-## onStatusChanged
+## Событие от хоста: status_changed
 
 <a id="opIdonStatusChanged"></a>
 
-`GET /events/statusChanged`
+> Code samples
 
-*Событие от хоста: status_changed*
+`GET /events/statusChanged`
 
 > Example responses
 
@@ -45,7 +37,7 @@ headingLevel: 2
 }
 ```
 
-<h3 id="onstatuschanged-responses">Responses</h3>
+<h3 id="событие-от-хоста:-status_changed-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -59,13 +51,13 @@ This operation does not require authentication
 
 Канал для работы с пользователем
 
-## user_getUser
+## Метод JSON-RPC: user_getUser
 
 <a id="opIduser_getUser"></a>
 
-`POST /user/getUser`
+> Code samples
 
-*Метод JSON-RPC: user_getUser*
+`POST /user/getUser`
 
 > Body parameter
 
@@ -75,12 +67,11 @@ This operation does not require authentication
 }
 ```
 
-<h3 id="user_getuser-parameters">Parameters</h3>
+<h3 id="метод-json-rpc:-user_getuser-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|[UserRequestParams](#schemauserrequestparams)|false|none|
-|» userId|body|string|false|none|
 
 > Example responses
 
@@ -94,7 +85,7 @@ This operation does not require authentication
 }
 ```
 
-<h3 id="user_getuser-responses">Responses</h3>
+<h3 id="метод-json-rpc:-user_getuser-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
