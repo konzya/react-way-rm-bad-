@@ -2,75 +2,41 @@
 
 ## Оглавление
 
-### Events
+### Navigation
 
-- [Событие от хоста: status_changed](#событие-от-хоста-status_changed)
-
-### User
-
-- [Метод JSON-RPC: user_getUser](#метод-json-rpc-user_getuser)
+- [navigation.push](#navigationpush)
 
 ---
 ## Описание методов
 
-## Events
+## Navigation
 
-### Событие от хоста: status_changed
+### navigation.push
 
-`GET /events/statusChanged`
+`POST /navigation/push`
 
-**Ответы:**
-
-- **`200`** - Данные события
-  *Схема ответа: `StatusEvent`*
-  ```json
-  {
-    "newStatus": "string"
-  }
-  ```
-
----
-
-## User
-
-### Метод JSON-RPC: user_getUser
-
-`POST /user/getUser`
+Добавляет новый экран или состояние в стек навигации пользователя.
 
 **Тело запроса:**
 
-*Схема: `UserRequestParams`*
+*Схема: `NavigationPushRequest`*
 
 ```json
 {
-  "userId": "string"
+  "screenId": "string - required",
+  "params": "object"
 }
 ```
 
 **Ответы:**
 
-- **`200`** - Результат (result) вызова
-  *Схема ответа: `UserResponse`*
+- **`200`** - Состояние навигации успешно обновлено. Возвращает текущий стек.
+  *Схема ответа: `NavigationStackResponse`*
   ```json
   {
-    "id": "string",
-    "name": "string",
-    "email": "string"
-  }
-  ```
-- **`400`** - Ошибка валидации
-  *Схема ответа: `ValidationError`*
-  ```json
-  {
-    "field": "string",
-    "message": "string"
-  }
-  ```
-- **`404`** - Не найдено
-  *Схема ответа: `NotFoundError`*
-  ```json
-  {
-    "resourceId": "string"
+    "currentScreen": "string - required",
+    "stack": "array[string] - required",
+    "depth": "integer - required"
   }
   ```
 
