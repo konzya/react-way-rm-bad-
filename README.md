@@ -28,16 +28,27 @@
 }
 ```
 
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `screenId` | `string` | ID экрана, на который нужно перейти. | **Да** |
+| `params` | `object` | Дополнительные параметры для экрана. | Нет |
+
 **Ответы:**
 
 - **`200`** - Состояние навигации успешно обновлено. Возвращает текущий стек.
   *Схема ответа: `NavigationStackResponse`*
   ```json
   {
-    "currentScreen": "string - required",
-    "stack": "array[string] - required",
-    "depth": "integer - required"
-  }
+  "currentScreen": "string - required",
+  "stack": "array[string] - required",
+  "depth": "integer - required"
+}
   ```
+
+  | Поле | Тип | Описание | Обязательное |
+  | --- | --- | --- | --- |
+  | `currentScreen` | `string` | - | **Да** |
+  | `stack` | `array[string]` | Массив ID экранов в стеке. | **Да** |
+  | `depth` | `integer` | - | **Да** |
 
 ---
