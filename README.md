@@ -34,8 +34,9 @@
 **Ответы:**
 
 - **`Response`** - Состояние навигации успешно обновлено. Возвращает текущий стек.
-  
-              *Схема: `NavigationStackResponse`*
+
+*Схема: `NavigationStackResponse`*
+
 ```json
 {
   "currentScreen": "string - required",
