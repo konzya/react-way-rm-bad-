@@ -21,34 +21,14 @@
 
 ```json
 {
-  "screenId": "string - required",
-  "params": "object"
+  "path": "string - required",
+  "queryArgs": "object"
 }
 ```
 
 | Поле | Тип | Описание | Обязательное |
 | --- | --- | --- | --- |
-| `screenId` | `string` | ID экрана, на который нужно перейти. | **Да** |
-| `params` | `object` | Дополнительные параметры для экрана. | Нет |
-
-**Ответы:**
-
-- **`Response`** - Состояние навигации успешно обновлено. Возвращает текущий стек.
-
-*Схема: `NavigationStackResponse`*
-
-```json
-{
-  "currentScreen": "string - required",
-  "stack": "array[string] - required",
-  "depth": "integer - required"
-}
-```
-
-| Поле | Тип | Описание | Обязательное |
-| --- | --- | --- | --- |
-| `currentScreen` | `string` | - | **Да** |
-| `stack` | `array[string]` | Массив ID экранов в стеке. | **Да** |
-| `depth` | `integer` | - | **Да** |
+| `path` | `string` | Путь до страницы, которую надо открыть. | **Да** |
+| `queryArgs` | `object` | Аргументы для передачи на страницу. | Нет |
 
 ---
