@@ -149,10 +149,10 @@
 
 *Схема: `NavigationOpenWebModuleResponse`*
 
-```
-
-        undefined
-      
+```json
+{
+  "info": "Schema 'NavigationOpenWebModuleResponse' is not an object. Type: unknown"
+}
 ```
 
 ---
@@ -245,10 +245,10 @@
 
 *Схема: `NavigationPushWithResultResponse`*
 
-```
-
-        undefined
-      
+```json
+{
+  "info": "Schema 'NavigationPushWithResultResponse' is not an object. Type: unknown"
+}
 ```
 
 ---
@@ -287,10 +287,10 @@
 
 *Схема: `ServicesBiometrics.authorizeResponse`*
 
-```
-
-        boolean
-      
+```json
+{
+  "info": "Schema 'ServicesBiometrics.authorizeResponse' is not an object. Type: boolean"
+}
 ```
 
 ---
