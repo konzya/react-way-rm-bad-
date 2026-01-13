@@ -32,7 +32,27 @@
 
 - [services.biometrics.authorize](#servicesbiometricsauthorize)
 - [services.biometrics.getAvailableAuthType](#servicesbiometricsgetavailableauthtype)
+- [services.biometrics.isBiometricsEnabled](#servicesbiometricsisbiometricsenabled)
 - [services.biometrics.setBiometricsState](#servicesbiometricssetbiometricsstate)
+- [services.contacts.get](#servicescontactsget)
+- [services.deviceInfo.getDeviceInfoForStatistics](#servicesdeviceinfogetdeviceinfoforstatistics)
+- [services.deviceInfo.getInfo](#servicesdeviceinfogetinfo)
+- [services.imagePicker.fromGallery](#servicesimagepickerfromgallery)
+- [services.localStorage.read](#serviceslocalstorageread)
+- [services.localStorage.write](#serviceslocalstoragewrite)
+- [services.payControl.checkAvailable](#servicespaycontrolcheckavailable)
+- [services.payControl.confirmTransaction](#servicespaycontrolconfirmtransaction)
+- [services.payControl.getUserId](#servicespaycontrolgetuserid)
+- [services.permission.check](#servicespermissioncheck)
+- [services.push.isPushEnabled](#servicespushispushenabled)
+- [services.push.setPushState](#servicespushsetpushstate)
+- [services.scanQrCode](#servicesscanqrcode)
+- [services.qr.scanFromFile](#servicesqrscanfromfile)
+- [services.sharing.shareFile](#servicessharingsharefile)
+- [services.sharing.shareText](#servicessharingsharetext)
+- [services.sharing.shareUrl](#servicessharingshareurl)
+- [services.smsConfirmation.confirm](#servicessmsconfirmationconfirm)
+- [services.telephone.call](#servicestelephonecall)
 
 ---
 ## Описание методов
@@ -459,6 +479,28 @@
 
 ---
 
+### services.biometrics.isBiometricsEnabled
+
+Проверка, включена ли биометрическая авторизация в настройках приложения.
+
+**Ответы:**
+
+- **`Response`** - Успешный возврат состояния биометрии
+
+*Схема: `ServicesBiometricsIsBiometricsEnabledResponse`*
+
+```json
+{
+  "result": "boolean - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `boolean` | Флаг состояния биометрии: `true` — включена, `false` — выключена. | **Да** |
+
+---
+
 ### services.biometrics.setBiometricsState
 
 Установить состояние биометрии: включить или отключить.
@@ -492,5 +534,676 @@
 | Поле | Тип | Описание | Обязательное |
 | --- | --- | --- | --- |
 | `result` | `boolean` | Успешно ли была выполнена команда по изменению состояния биометрии (включение или отключение). | **Да** |
+
+---
+
+### services.contacts.get
+
+Запрашивает список контактов из телефонной книги устройства. 
+
+**Важно:** Для Flutter на iOS 18+ поддерживается статус `isLimitedAccess`, который позволяет понять, что пользователь предоставил доступ не ко всей книге, а только к выбранным записям.
+
+**Ответы:**
+
+- **`Response`** - Успешное получение списка контактов
+
+*Схема: `ServicesContactsGetResponse`*
+
+```json
+{
+  "result": "object - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `object` | Результат запроса списка контактов. | **Да** |
+
+---
+
+### services.deviceInfo.getDeviceInfoForStatistics
+
+Возвращает расширенную информацию об устройстве, включая идентификаторы оборудования и версии браузерных движков. Используется преимущественно для систем аналитики и сбора статистики.
+
+**Ответы:**
+
+- **`Response`** - Успешное получение статистических данных
+
+*Схема: `ServicesDeviceInfoGetDeviceInfoForStatisticsResponse`*
+
+```json
+{
+  "result": "object - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `object` | Объект с технической информацией об устройстве для аналитики и статистики. | **Да** |
+
+---
+
+### services.deviceInfo.getInfo
+
+Возвращает техническую информацию об устройстве и текущем способе авторизации пользователя. Поля `androidId` и `identifierForVendor` являются платформозависимыми.
+
+**Ответы:**
+
+- **`Response`** - Успешное получение информации
+
+*Схема: `ServicesDeviceInfoGetInfoResponse`*
+
+```json
+{
+  "result": "object - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `object` | Объект с информацией об устройстве. | **Да** |
+
+---
+
+### services.imagePicker.fromGallery
+
+Открывает системную галерею устройства для выбора одного изображения. После выбора файл конвертируется в строку base64 с префиксом Data URI для удобного отображения в веб-интерфейсе (например, в теге `<img>`).
+
+**Ответы:**
+
+- **`Response`** - Объект с данными выбранного изображения
+
+*Схема: `ServicesImagePickerFromGalleryResponse`*
+
+```json
+{
+  "image": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `image` | `string` | Выбранное изображение в формате base64 Data URI. Включает метаданные (тип контента и кодировку). | **Да** |
+
+---
+
+### services.localStorage.read
+
+Чтение данных из локального хранилища. Позволяет выбирать между обычным и защищенным хранилищем с помощью флага isSecure.
+
+**Тело запроса:**
+
+*Схема: `LocalStorageReadRequest`*
+
+```json
+{
+  "key": "string - required",
+  "isSecure": "boolean - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `key` | `string` | Ключ, по которому необходимо считать значение. | **Да** |
+| `isSecure` | `boolean` | Тип используемого хранилища: `true` — защищенное (Secure Storage), `false` — обычное (Shared Preferences / UserDefaults). | **Да** |
+
+**Ответы:**
+
+- **`Response`** - Успешное чтение значения
+
+*Схема: `LocalStorageReadResponse`*
+
+```json
+{
+  "result": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `string` | Считанное значение в формате строки. Если данных по ключу нет, может вернуться пустая строка или null (зависит от реализации). | **Да** |
+
+---
+
+### services.localStorage.write
+
+Запись данных в локальное хранилище. Позволяет сохранять данные в обычном или защищенном виде.
+
+**Тело запроса:**
+
+*Схема: `LocalStorageWriteRequest`*
+
+```json
+{
+  "key": "string - required",
+  "value": "any - required",
+  "isSecure": "boolean - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `key` | `string` | Ключ, по которому будут сохранены данные. | **Да** |
+| `value` | `any` | Значение для записи. Может быть любым валидным JSON-типом (string, number, boolean, object, array). | **Да** |
+| `isSecure` | `boolean` | Тип используемого хранилища: `true` — защищенное (Secure Storage), `false` — обычное (Shared Preferences / UserDefaults). | **Да** |
+
+**Ответы:**
+
+- **`Response`** - Успешное завершение операции записи
+
+*Схема: `LocalStorageWriteResponse`*
+
+```json
+{
+  "type": "object"
+}
+```
+
+---
+
+### services.payControl.checkAvailable
+
+Проверяет возможность использования системы PayControl для подтверждения операций. Метод является кроссплатформенным и работает на Flutter и Cordova.
+
+**Ответы:**
+
+- **`Response`** - Успешный возврат статуса доступности
+
+*Схема: `ServicesPayControlCheckAvailableResponse`*
+
+```json
+{
+  "result": "boolean - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `boolean` | *См. подробное описание ниже* | **Да** |
+
+**Подробные описания полей:**
+
+> **Поле: `result`** (boolean)
+>
+Флаг доступности сервиса PayControl на текущем устройстве. `true` — сервис доступен и готов к работе, `false` — сервис недоступен (например, не установлено необходимое ПО или устройство не поддерживает требования безопасности).
+
+---
+
+
+---
+
+### services.payControl.confirmTransaction
+
+Подтверждение финансовой или значимой операции через сервис PayControl. Возвращает данные, необходимые для завершения транзакции на стороне бэкенда.
+
+**Тело запроса:**
+
+*Схема: `ServicesPayControlConfirmTransactionRequest`*
+
+```json
+{
+  "transactionId": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `transactionId` | `string` | Уникальный идентификатор транзакции, которую необходимо подтвердить. | **Да** |
+
+**Ответы:**
+
+- **`Response`** - Операция успешно подтверждена
+
+*Схема: `ServicesPayControlConfirmTransactionResponse`*
+
+```json
+{
+  "result": "object - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `object` | Объект с результатом подтверждения операции. | **Да** |
+
+---
+
+### services.payControl.getUserId
+
+Возвращает идентификатор текущего пользователя, зарегистрированного в сервисе PayControl. Метод доступен как на Flutter, так и на Cordova.
+
+**Ответы:**
+
+- **`Response`** - Успешное получение ID пользователя
+
+*Схема: `ServicesPayControlGetUserIdResponse`*
+
+```json
+{
+  "result": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `string` | Уникальный идентификатор пользователя в системе PayControl. | **Да** |
+
+---
+
+### services.permission.check
+
+Проверяет состояние разрешений для системных функций устройства. Метод является информационным: он **не вызывает** системное окно запроса доступа.
+
+**Тело запроса:**
+
+*Схема: `PermissionCheckRequest`*
+
+```json
+{
+  "permissions": "array[string] - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `permissions` | `array[string]` | *См. подробное описание ниже* | **Да** |
+
+**Подробные описания полей:**
+
+> **Поле: `permissions`** (array[string])
+>
+Список функций для проверки. 
+
+| Категория | Доступные значения |
+|---|---|
+| **Основные** | `camera`, `microphone`, `contacts`, `phone`, `sms`, `storage`, `ignoreBatteryOptimizations` |
+| **Гео** | `location`, `locationAlways`, `locationWhenInUse`, `accessMediaLocation` |
+| **Медиа** | `photos`, `photosAddOnly`, `mediaLibrary`, `videos`, `audio`, `accessMediaLocation` |
+| **Связь** | `bluetooth`, `bluetoothScan`, `bluetoothAdvertise`, `bluetoothConnect`, `nearbyWifiDevices` |
+| **Системные** | `notification`, `criticalAlerts`, `accessNotificationPolicy`, `activityRecognition`, `sensors`, `sensorsAlways`, `speech`, `reminders` |
+| **Дополнительно** | `manageExternalStorage`, `systemAlertWindow`, `requestInstallPackages`, `appTrackingTransparency`, `scheduleExactAlarm`, `backgroundRefresh`, `assistant` |
+| **Календарь** | `calendarWriteOnly`, `calendarFullAccess` |
+
+---
+
+
+**Ответы:**
+
+- **`Response`** - Результат проверки доступов
+
+*Схема: `PermissionCheckResponse`*
+
+```json
+{
+  "type": "object"
+}
+```
+
+---
+
+### services.push.isPushEnabled
+
+Проверяет, включены ли пуш-уведомления. Метод учитывает как внутренний статус подписки в приложении, так и наличие системных разрешений от ОС.
+
+**Ответы:**
+
+- **`Response`** - Успешный возврат статуса пуш-уведомлений
+
+*Схема: `ServicesPushIsPushEnabledResponse`*
+
+```json
+{
+  "result": "boolean - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `boolean` | Текущий статус пуш-уведомлений: `true` — подписка активна и разрешения получены, `false` — уведомления отключены. | **Да** |
+
+---
+
+### services.push.setPushState
+
+Включить или отключить подписку на пуш-уведомления. Метод подтверждает получение команды, но не гарантирует моментальное изменение статуса на стороне системы.
+
+**Тело запроса:**
+
+*Схема: `ServicesPushSetPushStateRequest`*
+
+```json
+{
+  "enabled": "boolean - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `enabled` | `boolean` | Флаг управления подпиской: `true` — включить пуши, `false` — отключить. | **Да** |
+
+**Ответы:**
+
+- **`Response`** - Команда успешно принята в обработку
+
+*Схема: `ServicesPushSetPushStateResponse`*
+
+```json
+{
+  "result": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `string` | Статус обработки команды. Всегда возвращает `success`. Для проверки фактического состояния подписки необходимо вызвать метод `push.isPushEnabled`. | **Да** |
+
+---
+
+### services.scanQrCode
+
+### Различия платформ:
+
+* **Flutter**: Метод только инициирует открытие экрана сканера. Результат сканирования **не возвращается** в вызывающий код. Все последующие действия (обработка кода, переходы) выполняются нативной частью напрямую с микросервисами (МС).
+* **Cordova**: Метод открывает камеру, сканирует код и **возвращает** строку с результатом обратно в веб-часть для дальнейшей обработки.
+
+**Ответы:**
+
+- **`Response`** - Успешный вызов сканера
+
+*Схема: `ServicesScanQrCodeResponse`*
+
+```json
+{
+  "result": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `string` | *См. подробное описание ниже* | **Да** |
+
+**Подробные описания полей:**
+
+> **Поле: `result`** (string)
+>
+Результат сканирования QR-кода.
+
+| Платформа | Поведение |
+|---|---|
+| **Cordova** | Возвращает расшифрованную строку из QR-кода. |
+| **Flutter** | Возвращает пустую строку или null, так как обработка данных происходит на стороне натива/МС. |
+
+---
+
+
+---
+
+### services.qr.scanFromFile
+
+### Особенности работы:
+
+* **Flutter**: Открывает системное окно выбора изображений. После выбора файла и успешного сканирования управление **не возвращается** в веб-интерфейс с данными. Все действия по результатам сканирования выполняются нативным кодом напрямую с микросервисами.
+* **Cordova**: Позволяет передать конкретный путь к файлу или base64. После сканирования **возвращает** текстовый результат в веб-слой.
+
+**Тело запроса:**
+
+*Схема: `ServicesQrScanFromFileRequest`*
+
+```json
+{
+  "path": "string"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `path` | `string` | *См. подробное описание ниже* | Нет |
+
+**Подробные описания полей:**
+
+> **Поле: `path`** (string)
+>
+Путь к файлу. Может быть передан как URL (http/https) или как строка в формате base64. Если параметр не передан, Cordova может открыть системный выбор файла (зависит от реализации).
+
+---
+
+
+**Ответы:**
+
+- **`Response`** - Файл успешно принят в обработку
+
+*Схема: `ServicesQrScanFromFileResponse`*
+
+```json
+{
+  "result": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `string` | *См. подробное описание ниже* | **Да** |
+
+**Подробные описания полей:**
+
+> **Поле: `result`** (string)
+>
+Результат распознавания QR-кода из файла.
+
+| Платформа | Поведение |
+|---|---|
+| **Cordova** | Возвращает строку, закодированную в QR-коде. |
+| **Flutter** | Возвращает пустую строку, так как результат обрабатывается нативной частью и отправляется сразу в МС. |
+
+---
+
+
+---
+
+### services.sharing.shareFile
+
+Позволяет отправить один или несколько файлов через системное меню «Поделиться». Файлы должны быть предварительно скачаны в локальное хранилище устройства.
+
+**Тело запроса:**
+
+*Схема: `SharingShareFileRequest`*
+
+```json
+{
+  "paths": "array[string] - required",
+  "text": "string",
+  "subject": "string",
+  "sharePositionOrigin": "array[number]"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `paths` | `array[string]` | Список локальных путей к файлам, которые нужно расшарить. | **Да** |
+| `text` | `string` | Текст, который будет добавлен к файлам при отправке. | Нет |
+| `subject` | `string` | Тема сообщения (используется в почтовых клиентах). | Нет |
+| `sharePositionOrigin` | `array[number]` | Координаты для iPad `[left, top, width, height]`. Определяют точку, из которой «вылетит» системное меню шеринга. | Нет |
+
+**Ответы:**
+
+- **`Response`** - Меню выбора приложений открыто
+
+*Схема: `SharingShareFileResponse`*
+
+```json
+{
+  "result": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `string` | Статус вызова метода. Возвращает `success`, если системное окно выбора приложений было успешно открыто. | **Да** |
+
+---
+
+### services.sharing.shareText
+
+Вызывает системное диалоговое окно для отправки текста через доступные на устройстве приложения (мессенджеры, почта, заметки).
+
+**Тело запроса:**
+
+*Схема: `SharingShareTextRequest`*
+
+```json
+{
+  "text": "string - required",
+  "subject": "string",
+  "sharePositionOrigin": "array[number]"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `text` | `string` | Текст, которым необходимо поделиться. | **Да** |
+| `subject` | `string` | Тема сообщения или заголовок (используется, например, при отправке через Email). | Нет |
+| `sharePositionOrigin` | `array[number]` | *См. подробное описание ниже* | Нет |
+
+**Подробные описания полей:**
+
+> **Поле: `sharePositionOrigin`** (array[number])
+>
+Координаты для позиционирования окна шеринга на iPad в формате `[left, top, width, height]`. Позволяет привязать всплывающее окно к конкретному элементу интерфейса.
+
+---
+
+
+**Ответы:**
+
+- **`Response`** - Диалог шеринга успешно открыт
+
+*Схема: `SharingShareTextResponse`*
+
+```json
+{
+  "result": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `string` | Статус вызова метода. Возвращает `success`, если системное диалоговое окно шеринга было успешно вызвано. | **Да** |
+
+---
+
+### services.sharing.shareUrl
+
+Открывает системное окно шеринга для передачи ссылки. На мобильных устройствах это обычно вызывает нативную панель с выбором мессенджеров, почты и социальных сетей.
+
+**Тело запроса:**
+
+*Схема: `SharingShareUrlRequest`*
+
+```json
+{
+  "url": "string - required",
+  "urlTitle": "string",
+  "sharePositionOrigin": "array[number]"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `url` | `string` | URL-адрес, которым необходимо поделиться. | **Да** |
+| `urlTitle` | `string` | Название или заголовок для ссылки, который будет отображаться в превью сообщения. | Нет |
+| `sharePositionOrigin` | `array[number]` | Координаты для iPad `[left, top, width, height]`. Нужны, чтобы стрелочка всплывающего окна (popover) указывала на правильный элемент интерфейса. | Нет |
+
+**Ответы:**
+
+- **`Response`** - Системное окно шеринга открыто
+
+*Схема: `SharingShareUrlResponse`*
+
+```json
+{
+  "result": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `string` | Статус вызова метода. Возвращает `success`, если системное меню шеринга было успешно открыто. | **Да** |
+
+---
+
+### services.smsConfirmation.confirm
+
+## ВНИМАНИЕ: Только для SMSConfirmationParamsV2
+Метод для подтверждения операций через SMS. 
+
+**Важно:** Flutter-приложение поддерживает только формат параметров V2. Использование параметров V1 приведет к ошибке выполнения.
+
+**Тело запроса:**
+
+*Схема: `SmsConfirmationConfirmRequest`*
+
+```json
+{
+  "codeSize": "integer - required",
+  "requestCodeParams": "object - required",
+  "checkCodeParams": "object - required",
+  "additionalCheckParams": "object"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `codeSize` | `integer` | Длина SMS-кода (например, 4 или 6 символов). | **Да** |
+| `requestCodeParams` | `object` | Параметры для запроса (отправки) SMS-кода. | **Да** |
+| `checkCodeParams` | `object` | Параметры для проверки введенного пользователем кода. | **Да** |
+| `additionalCheckParams` | `object` | Дополнительные параметры проверки (опционально). | Нет |
+
+**Ответы:**
+
+- **`Response`** - Операция успешно подтверждена
+
+*Схема: `SmsConfirmationConfirmResponse`*
+
+```json
+{
+  "result": "boolean - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `result` | `boolean` | Результат подтверждения: `true` — код успешно проверен, операция подтверждена; `false` — ошибка подтверждения или отмена пользователем. | **Да** |
+
+---
+
+### services.telephone.call
+
+Инициирует переход в нативное приложение для совершения звонков. Метод не совершает звонок автоматически, а только открывает диалер с предзаполненным номером.
+
+**Тело запроса:**
+
+*Схема: `TelephoneCallRequest`*
+
+```json
+{
+  "phoneNumber": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `phoneNumber` | `string` | Номер телефона, который будет подставлен в приложение для звонков. Рекомендуется использовать международный формат (например, +79991234567). | **Да** |
+
+**Ответы:**
+
+- **`Response`** - Приложение для звонков успешно вызвано
+
+*Схема: `TelephoneCallResponse`*
+
+```json
+{
+  "type": "boolean"
+}
+```
 
 ---
