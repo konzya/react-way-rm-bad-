@@ -31,6 +31,7 @@
 ### services
 
 - [services.biometrics.authorize](#servicesbiometricsauthorize)
+- [services.biometrics.getAvailableAuthType](#servicesbiometricsgetavailableauthtype)
 
 ---
 ## Описание методов
@@ -434,6 +435,24 @@
 ```json
 {
   "type": "boolean"
+}
+```
+
+---
+
+### services.biometrics.getAvailableAuthType
+
+Получение доступного типа биометрии на устройстве.
+
+**Ответы:**
+
+- **`Response`** - Успешный возврат типа биометрии
+
+*Схема: `ServicesBiometrics.getAvailableAuthTypeResponse`*
+
+```json
+{
+  "type": "string"
 }
 ```
 
