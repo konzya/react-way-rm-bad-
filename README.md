@@ -30,20 +30,24 @@
 
 ### services
 
+- [services.app.Info](#servicesappinfo)
 - [services.biometrics.authorize](#servicesbiometricsauthorize)
 - [services.biometrics.getAvailableAuthType](#servicesbiometricsgetavailableauthtype)
 - [services.biometrics.isBiometricsEnabled](#servicesbiometricsisbiometricsenabled)
 - [services.biometrics.setBiometricsState](#servicesbiometricssetbiometricsstate)
+- [services.callerId.checkAvailable](#servicescalleridcheckavailable)
 - [services.contacts.get](#servicescontactsget)
 - [services.deviceInfo.getDeviceInfoForStatistics](#servicesdeviceinfogetdeviceinfoforstatistics)
 - [services.deviceInfo.getInfo](#servicesdeviceinfogetinfo)
 - [services.imagePicker.fromGallery](#servicesimagepickerfromgallery)
 - [services.localStorage.read](#serviceslocalstorageread)
 - [services.localStorage.write](#serviceslocalstoragewrite)
+- [services.location.getLocation](#serviceslocationgetlocation)
 - [services.payControl.checkAvailable](#servicespaycontrolcheckavailable)
 - [services.payControl.confirmTransaction](#servicespaycontrolconfirmtransaction)
 - [services.payControl.getUserId](#servicespaycontrolgetuserid)
 - [services.permission.check](#servicespermissioncheck)
+- [services.permission.get](#servicespermissionget)
 - [services.push.isPushEnabled](#servicespushispushenabled)
 - [services.push.setPushState](#servicespushsetpushstate)
 - [services.scanQrCode](#servicesscanqrcode)
@@ -53,6 +57,7 @@
 - [services.sharing.shareUrl](#servicessharingshareurl)
 - [services.smsConfirmation.confirm](#servicessmsconfirmationconfirm)
 - [services.telephone.call](#servicestelephonecall)
+- [services.waiter.hide](#serviceswaiterhide)
 
 ---
 ## Описание методов
@@ -443,6 +448,30 @@
 
 ## services
 
+### services.app.Info
+
+Возвращает метаданные текущей сборки приложения: версию и номер билда. Эти данные полезны для отображения в разделе «О приложении» или для передачи в системы аналитики.
+
+**Ответы:**
+
+- **`Response`** - Объект с информацией о версии и билде
+
+*Схема: `ServicesAppInfoResponse`*
+
+```json
+{
+  "appVersion": "string - required",
+  "buildNumber": "string - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `appVersion` | `string` | Семантическая версия приложения (например, `1.2.0`). | **Да** |
+| `buildNumber` | `string` | Порядковый номер сборки (билд), обычно инкрементируется при каждой публикации в сторы. | **Да** |
+
+---
+
 ### services.biometrics.authorize
 
 Авторизация по биометрии.
@@ -534,6 +563,37 @@
 | Поле | Тип | Описание | Обязательное |
 | --- | --- | --- | --- |
 | `result` | `boolean` | Успешно ли была выполнена команда по изменению состояния биометрии (включение или отключение). | **Да** |
+
+---
+
+### services.callerId.checkAvailable
+
+Проверяет, включена ли функция определителя номера в системных настройках устройства. Этот метод позволяет веб-интерфейсу узнать, активно ли расширение Call Directory (на iOS) или аналогичные службы на Android, чтобы предложить пользователю их включить.
+
+**Ответы:**
+
+- **`Response`** - Объект со статусом доступности определителя номера
+
+*Схема: `ServicesCallerIdCheckAvailableResponse`*
+
+```json
+{
+  "callerIdAvailable": "boolean - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `callerIdAvailable` | `boolean` | *См. подробное описание ниже* | **Да** |
+
+**Подробные описания полей:**
+
+> **Поле: `callerIdAvailable`** (boolean)
+>
+Текущий статус определителя номера: `true` — расширение активно и включено в системных настройках, `false` — определитель выключен или не поддерживается.
+
+---
+
 
 ---
 
@@ -701,6 +761,79 @@
 
 ---
 
+### services.location.getLocation
+
+Запрашивает текущие координаты устройства с указанной точностью.
+
+**Тело запроса:**
+
+*Схема: `LocationGetLocationRequest`*
+
+```json
+{
+  "accuracy": "string"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `accuracy` | `string` | *См. подробное описание ниже* | Нет |
+
+**Подробные описания полей:**
+
+> **Поле: `accuracy`** (string)
+>
+Желаемая точность местоположения.
+
+| Значение | Описание |
+|---|---|
+| `high` | Максимальная точность (GPS, Wi-Fi, сети). Высокий расход батареи. |
+| `balanced` | Оптимальная точность (Wi-Fi, сети). Баланс энергии и точности. |
+| `low` | Грубая точность (сотовые вышки). Низкое энергопотребление. |
+| `powerSave` | Максимальная экономия заряда. |
+| `navigation` | Высокая частота обновлений для режима навигации. |
+| `reduced` | Пассивный режим (использует данные от других приложений). |
+
+---
+
+
+**Ответы:**
+
+- **`Response`** - Успешный ответ (содержимое result)
+
+*Схема: `LocationGetLocationResponse`*
+
+```json
+{
+  "latitude": "number - required",
+  "longitude": "number - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `latitude` | `number` | Широта в десятичных градусах. | **Да** |
+| `longitude` | `number` | Долгота в десятичных градусах. | **Да** |
+- **`Error: 400`** - Ошибка выполнения операции (JSON-RPC Error)
+
+*Схема: `JsonRpcError`*
+
+```json
+{
+  "jsonrpc": "string - required",
+  "error": "object - required",
+  "id": "integer - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `jsonrpc` | `string` | - | **Да** |
+| `error` | `object` | - | **Да** |
+| `id` | `integer` | - | **Да** |
+
+---
+
 ### services.payControl.checkAvailable
 
 Проверяет возможность использования системы PayControl для подтверждения операций. Метод является кроссплатформенным и работает на Flutter и Cordova.
@@ -832,6 +965,57 @@
 - **`Response`** - Результат проверки доступов
 
 *Схема: `PermissionCheckResponse`*
+
+```json
+{
+  "type": "object"
+}
+```
+
+---
+
+### services.permission.get
+
+Запрашивает у пользователя разрешения для доступа к системным функциям. В отличие от `permission.check`, этот метод **вызывает системное диалоговое окно**. Если пользователь ранее навсегда запретил доступ, окно не появится, и вернется статус `deniedAlways`.
+
+**Тело запроса:**
+
+*Схема: `PermissionGetRequest`*
+
+```json
+{
+  "permissions": "array[string] - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `permissions` | `array[string]` | *См. подробное описание ниже* | **Да** |
+
+**Подробные описания полей:**
+
+> **Поле: `permissions`** (array[string])
+>
+Список функций, для которых нужно вызвать системный запрос доступа.
+
+| Категория | Доступные значения |
+|---|---|
+| **Основные** | `camera`, `microphone`, `contacts`, `phone`, `sms`, `storage`, `ignoreBatteryOptimizations` |
+| **Гео** | `location`, `locationAlways`, `locationWhenInUse`, `accessMediaLocation` |
+| **Медиа** | `photos`, `photosAddOnly`, `mediaLibrary`, `videos`, `audio`, `accessMediaLocation` |
+| **Связь** | `bluetooth`, `bluetoothScan`, `bluetoothAdvertise`, `bluetoothConnect`, `nearbyWifiDevices` |
+| **Системные** | `notification`, `criticalAlerts`, `accessNotificationPolicy`, `activityRecognition`, `sensors`, `sensorsAlways`, `speech`, `reminders` |
+| **Дополнительно** | `manageExternalStorage`, `systemAlertWindow`, `requestInstallPackages`, `appTrackingTransparency`, `scheduleExactAlarm`, `backgroundRefresh`, `assistant` |
+| **Календарь** | `calendarWriteOnly`, `calendarFullAccess` |
+
+---
+
+
+**Ответы:**
+
+- **`Response`** - Объект с актуальными статусами доступов после запроса
+
+*Схема: `PermissionGetResponse`*
 
 ```json
 {
@@ -1203,6 +1387,24 @@
 ```json
 {
   "type": "boolean"
+}
+```
+
+---
+
+### services.waiter.hide
+
+Скрывает полноэкранный индикатор загрузки (лоадер), который был вызван хост-приложением или методом `waiter.show`. Рекомендуется вызывать сразу после получения данных от сервера или завершения длительной фоновой операции.
+
+**Ответы:**
+
+- **`Response`** - Лоадер успешно скрыт
+
+*Схема: `WaiterHideResponse`*
+
+```json
+{
+  "type": "object"
 }
 ```
 
