@@ -8,7 +8,7 @@
 
 ### broadcast
 
-- [goBack](#broadcastgoback)
+- [onEvent](#broadcastonevent)
 - [onLifecycleChanged](#broadcastonlifecyclechanged)
 - [onChangeVisibility](#broadcastonchangevisibility)
 - [onServerMessage](#broadcastonservermessage)
@@ -103,9 +103,39 @@
 
 ## broadcast
 
-### broadcast.goBack
+### broadcast.onEvent
 
 С помощью этого метода можно повесить обработчик на системное действие назад в телефоне.
+
+**Ответы:**
+
+- **`Response`** - Результат регистрации подписки
+
+*Схема: `BroadcastOnEventResponse`*
+
+```json
+{
+  "success": "boolean - required"
+}
+```
+
+| Поле | Тип | Описание | Обязательное |
+| --- | --- | --- | --- |
+| `success` | `boolean` | *См. подробное описание ниже* | **Да** |
+
+**Подробные описания полей:**
+
+> **Поле: `success`** (boolean)
+>
+Статус регистрации подписчика.
+
+| Значение | Описание |
+| :--- | :--- |
+| `true` | Подписка успешно оформлена, веб-модуль начнет получать события. |
+| `false` | Не удалось установить подписку (например, из-за внутренних ограничений хоста). |
+
+---
+
 
 ---
 
