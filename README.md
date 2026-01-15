@@ -8,7 +8,7 @@
 
 ### broadcast
 
-- [onEvent](#broadcastonevent)
+- [goBack](#broadcastgoback)
 - [onLifecycleChanged](#broadcastonlifecyclechanged)
 - [onChangeVisibility](#broadcastonchangevisibility)
 - [onServerMessage](#broadcastonservermessage)
@@ -103,7 +103,7 @@
 
 ## broadcast
 
-### broadcast.onEvent
+### broadcast.goBack
 
 С помощью этого метода можно повесить обработчик на системное действие назад в телефоне.
 
@@ -111,7 +111,7 @@
 
 - **`Response`** - Результат регистрации подписки
 
-*Схема: `BroadcastOnEventResponse`*
+*Схема: `BroadcastGoBackResponse`*
 
 ```json
 {
