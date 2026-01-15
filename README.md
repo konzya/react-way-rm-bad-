@@ -4,75 +4,75 @@
 
 ### authentication
 
-- [authentication.logout](#authenticationlogout)
+- [logout](#authenticationlogout)
 
 ### broadcast
 
-- [broadcast.goBack](#broadcastgoback)
-- [broadcast.onLifecycleChanged](#broadcastonlifecyclechanged)
-- [broadcast.onChangeVisibility](#broadcastonchangevisibility)
-- [broadcast.onServerMessage](#broadcastonservermessage)
+- [goBack](#broadcastgoback)
+- [onLifecycleChanged](#broadcastonlifecyclechanged)
+- [onChangeVisibility](#broadcastonchangevisibility)
+- [onServerMessage](#broadcastonservermessage)
 
 ### clipboard
 
-- [clipboard.copy](#clipboardcopy)
-- [clipboard.paste](#clipboardpaste)
+- [copy](#clipboardcopy)
+- [paste](#clipboardpaste)
 
 ### confirmation
 
-- [confirmation.confirm](#confirmationconfirm)
+- [confirm](#confirmationconfirm)
 
 ### Navigation
 
-- [navigation.download](#navigationdownload)
-- [navigation.downloadAndOpen](#navigationdownloadandopen)
-- [navigation.openExternalLink](#navigationopenexternallink)
-- [navigation.openWebModule](#navigationopenwebmodule)
-- [navigation.pop](#navigationpop)
-- [navigation.popUntil](#navigationpopuntil)
-- [navigation.push](#navigationpush)
-- [navigation.pushWithResult](#navigationpushwithresult)
-- [navigation.replace](#navigationreplace)
+- [download](#navigationdownload)
+- [downloadAndOpen](#navigationdownloadandopen)
+- [openExternalLink](#navigationopenexternallink)
+- [openWebModule](#navigationopenwebmodule)
+- [pop](#navigationpop)
+- [popUntil](#navigationpopuntil)
+- [push](#navigationpush)
+- [pushWithResult](#navigationpushwithresult)
+- [replace](#navigationreplace)
 
 ### pdfViewer
 
-- [pdfViewer.show](#pdfviewershow)
+- [show](#pdfviewershow)
 
 ### services
 
-- [services.app.Info](#servicesappinfo)
-- [services.biometrics.authorize](#servicesbiometricsauthorize)
-- [services.biometrics.getAvailableAuthType](#servicesbiometricsgetavailableauthtype)
-- [services.biometrics.isBiometricsEnabled](#servicesbiometricsisbiometricsenabled)
-- [services.biometrics.setBiometricsState](#servicesbiometricssetbiometricsstate)
-- [services.callerId.checkAvailable](#servicescalleridcheckavailable)
-- [services.contacts.get](#servicescontactsget)
-- [services.deviceInfo.getDeviceInfoForStatistics](#servicesdeviceinfogetdeviceinfoforstatistics)
-- [services.deviceInfo.getInfo](#servicesdeviceinfogetinfo)
-- [services.imagePicker.fromGallery](#servicesimagepickerfromgallery)
-- [services.localStorage.read](#serviceslocalstorageread)
-- [services.localStorage.write](#serviceslocalstoragewrite)
-- [services.location.getLocation](#serviceslocationgetlocation)
-- [services.payControl.checkAvailable](#servicespaycontrolcheckavailable)
-- [services.payControl.confirmTransaction](#servicespaycontrolconfirmtransaction)
-- [services.payControl.getUserId](#servicespaycontrolgetuserid)
-- [services.permission.check](#servicespermissioncheck)
-- [services.permission.get](#servicespermissionget)
-- [services.push.isPushEnabled](#servicespushispushenabled)
-- [services.push.setPushState](#servicespushsetpushstate)
-- [services.scanQrCode](#servicesscanqrcode)
-- [services.qr.scanFromFile](#servicesqrscanfromfile)
-- [services.sharing.shareFile](#servicessharingsharefile)
-- [services.sharing.shareText](#servicessharingsharetext)
-- [services.sharing.shareUrl](#servicessharingshareurl)
-- [services.smsConfirmation.confirm](#servicessmsconfirmationconfirm)
-- [services.telephone.call](#servicestelephonecall)
-- [services.waiter.hide](#serviceswaiterhide)
+- [app.Info](#servicesappinfo)
+- [biometrics.authorize](#servicesbiometricsauthorize)
+- [biometrics.getAvailableAuthType](#servicesbiometricsgetavailableauthtype)
+- [biometrics.isBiometricsEnabled](#servicesbiometricsisbiometricsenabled)
+- [biometrics.setBiometricsState](#servicesbiometricssetbiometricsstate)
+- [callerId.checkAvailable](#servicescalleridcheckavailable)
+- [contacts.get](#servicescontactsget)
+- [deviceInfo.getDeviceInfoForStatistics](#servicesdeviceinfogetdeviceinfoforstatistics)
+- [deviceInfo.getInfo](#servicesdeviceinfogetinfo)
+- [imagePicker.fromGallery](#servicesimagepickerfromgallery)
+- [localStorage.read](#serviceslocalstorageread)
+- [localStorage.write](#serviceslocalstoragewrite)
+- [location.getLocation](#serviceslocationgetlocation)
+- [payControl.checkAvailable](#servicespaycontrolcheckavailable)
+- [payControl.confirmTransaction](#servicespaycontrolconfirmtransaction)
+- [payControl.getUserId](#servicespaycontrolgetuserid)
+- [permission.check](#servicespermissioncheck)
+- [permission.get](#servicespermissionget)
+- [push.isPushEnabled](#servicespushispushenabled)
+- [push.setPushState](#servicespushsetpushstate)
+- [scanQrCode](#servicesscanqrcode)
+- [qr.scanFromFile](#servicesqrscanfromfile)
+- [sharing.shareFile](#servicessharingsharefile)
+- [sharing.shareText](#servicessharingsharetext)
+- [sharing.shareUrl](#servicessharingshareurl)
+- [smsConfirmation.confirm](#servicessmsconfirmationconfirm)
+- [telephone.call](#servicestelephonecall)
+- [waiter.hide](#serviceswaiterhide)
 
 ### tabbar
 
-- [tabbar.hide](#tabbarhide)
-- [tabbar.show](#tabbarshow)
+- [hide](#tabbarhide)
+- [show](#tabbarshow)
 
 ---
 ## Описание методов
